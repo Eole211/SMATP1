@@ -1,5 +1,6 @@
 /**
  * Created by Léo on 02-11-15.
+ * Messages
  */
 public class Msg {
 

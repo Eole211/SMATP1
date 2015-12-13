@@ -5,6 +5,7 @@ import java.util.Timer;
 
 /**
  * Created by Léo on 02-11-15.
+ * Grille
  */
 public class Grid {
     final  int m_sizex=5;
@@ -27,6 +28,10 @@ public class Grid {
         }
     }
 
+    /**
+     * singleton
+     * @return 
+     */
     public static Grid getInstance(){
         if(m_instance==null){
             m_instance=new Grid();
@@ -36,7 +41,13 @@ public class Grid {
     }
 
 
-
+/**
+ * bouge l'agent situé à la première case vers la deuxième case
+ * @param c1
+ * 1ère case
+ * @param c2
+ * 2ème case
+ */
     public void moveAgent(Case c1, Case c2){
         synchronized(m_sem){
             if(c1.getAgent()!=null && c2.getAgent()==null){
@@ -47,20 +58,27 @@ public class Grid {
             }
             //}
         }
-                 /*   
-            if(c1.getAgent()!=null){
-                c2.setAgent(c1.getAgent());
-                c1.setAgent(null);
-            }
-                         */     
+              
         
     }
     
+    /**
+     * Mise en route de tout les agents
+     */
     public void startAgents() {
         for (Agent a : this.m_lAg) {
             a.start();
         }
     }
+    
+    /**
+     * Ajout d'un agent
+     * @param s
+     * lettre de l'agent
+     * @return
+     * l'agent
+     * @throws Exception 
+     */
     public Agent addAgent(String s) throws Exception{
         if(m_lAg.size()<m_sizex*m_sizey-1 ) {
             Random rnd = new Random();
@@ -97,7 +115,16 @@ public class Grid {
         }
                     
     }
-
+/**
+ * Retourne les cases voisines occupées ou les cases voisines libres autour de la case
+ * @param x
+ * position sur l'axe x de la case
+ * @param y
+ * position sur l'axe y de la case
+ * @param free
+ * true : cases occupées, false cases libres
+ * @return 
+ */
     public List<Case> getFreeNeighbors(int x, int y,boolean free){
         Case[][] cases=m_cases;
          List<Case> emptyNeighb = new LinkedList<>();
