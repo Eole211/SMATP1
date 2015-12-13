@@ -93,14 +93,17 @@ public class Agent extends Thread {
                                     goodCases.add(c);
                                 }
                             }
-                            if (!goodCases.isEmpty()) {
-                                rnd = rndGen.nextInt(goodCases.size());
+                            if (goodCases.isEmpty()) {
+                                goodCases=m_grid.getFreeNeighbors(x, y, false);
+                            }
+                            if(!goodCases.isEmpty() ){
+                            rnd = rndGen.nextInt(goodCases.size());
                                 Agent toMove = goodCases.get(rnd).getAgent();
                                 if (toMove != null) {
                                     LetterBox.getInstance().sendMessage(new Msg(this, toMove, Msg.Request.ASK, Msg.Action.MOVE, goodCases.get(rnd)));
                                     System.out.println(this.m_string + " asked " + toMove.getString() + " to move");
                                 }
-                            }
+                          }
 
                         }
                     }
@@ -116,6 +119,9 @@ public class Agent extends Thread {
                             LetterBox.getInstance().sendMessage(new Msg(this, toMove, Msg.Request.ASK, Msg.Action.MOVE, goodCases.get(rnd)));
                             System.out.println(this.m_string + " asked " + toMove.getString() + " to move");
                         }
+                    }
+                    else{
+                        
                     }
                     //}
                 } else {
